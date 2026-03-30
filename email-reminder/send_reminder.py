@@ -1,19 +1,7 @@
-import os
 import smtplib
 from email.mime.text import MIMEText
 from datetime import datetime
 import config
-
-def get_counter():
-    if os.path.exists(config.COUNTER_FILE):
-        with open(config.COUNTER_FILE, "r") as f:
-            return int(f.read().strip())
-    return 0
-
-
-def update_counter(count):
-    with open(config.COUNTER_FILE, "w") as f:
-        f.write(str(count))
 
 
 def send_email(subject, body):
@@ -29,21 +17,13 @@ def send_email(subject, body):
 
 
 def main():
-    count = get_counter()
-
-    if count >= config.MAX_REMINDERS:
-        print("Max reminders reached. Stopping.")
-        return
-
-    count += 1
-    update_counter(count)
-
-    subject = f"Reminder {count}/{config.MAX_REMINDERS}: Claim Amount Pending Since Nov 2025"
+    now = datetime.now()
+    subject = now.strftime("Reminder %d/%m/%Y %I:%M %p: Claim Amount Pending Since Nov 2025")
 
     body = f"""
 Hi,
 
-This is reminder {count} regarding the claim amount that has not been received after approval in Nov 2025.
+This is a reminder regarding the claim amount that has not been received after approval in Nov 2025.
 
 I had already shared the required details again in a new email on 3rd March, including the cancelled cheque and bank statements.
 However, I have still not received any update on when the amount will be credited to my account.
@@ -55,7 +35,7 @@ Looking forward to your response.
 Requested action:
 Please check and process the pending claim amount.
 
-Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+Timestamp: {now.strftime('%Y-%m-%d %H:%M:%S')}
 
 Regards,
 Siddhartha

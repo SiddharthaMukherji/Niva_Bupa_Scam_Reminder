@@ -35,3 +35,19 @@ Add:
 - Enable 2FA
 - Generate App Password
 - Use that in `config.py`
+
+## GitHub Actions Setup
+
+For remote scheduling without your laptop running, use GitHub Actions:
+
+1. Create repository secrets:
+   - `SENDER_EMAIL`
+   - `SENDER_PASSWORD`
+   - `RECIPIENT_EMAIL`
+
+2. The workflow is in `.github/workflows/send-reminder.yml`
+3. It runs at 09:00, 11:00, and 15:00 IST every day (UTC: 03:30, 05:30, 09:30).
+
+Notes:
+- The action generates `email-reminder/config.py` from secrets at runtime.
+- You do not need to store credentials in the repo.
