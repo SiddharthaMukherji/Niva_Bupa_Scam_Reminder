@@ -1,7 +1,7 @@
 import logging
 import smtplib
 from email.mime.text import MIMEText
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 import config
 
 logging.basicConfig(
@@ -55,8 +55,9 @@ def send_email(subject, body):
 
 
 def main():
-    now = datetime.now()
-    subject = now.strftime("Reminder %d/%m/%Y %I:%M %p: Claim Amount Pending Since Nov 2025")
+    ist = timezone(timedelta(hours=5, minutes=30))
+    now = datetime.now(ist)
+    subject = now.strftime("Reminder %d/%m/%Y %I:%M %p IST: Claim Amount Pending Since Nov 2025")
 
     body = f"""
 Hi,
