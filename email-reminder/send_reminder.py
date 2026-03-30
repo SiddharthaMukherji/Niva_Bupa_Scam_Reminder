@@ -12,11 +12,25 @@ logging.basicConfig(
 
 
 def normalize_recipients(recipients):
+    def normalize(value):
+        if not isinstance(value, str):
+            raise ValueError("Each recipient must be a string")
+        parts = [part.strip() for part in value.replace(";", ",").split(",")]
+        return [part for part in parts if part]
+
     if isinstance(recipients, str):
-        return [recipients]
-    if isinstance(recipients, (list, tuple)):
-        return list(recipients)
-    raise ValueError("RECIPIENT_EMAIL must be a string, list, or tuple")
+        parsed = normalize(recipients)
+    elif isinstance(recipients, (list, tuple)):
+        parsed = []
+        for item in recipients:
+            parsed.extend(normalize(item))
+    else:
+        raise ValueError("RECIPIENT_EMAIL must be a string, list, or tuple")
+
+    if not parsed:
+        raise ValueError("No valid recipient addresses found in RECIPIENT_EMAIL")
+
+    return parsed
 
 
 def send_email(subject, body):
@@ -70,6 +84,7 @@ Siddhartha
     except Exception as e:
         logging.exception("Failed to send email")
         print(f"Failed to send email: {e}")
+        raise
 
 
 if __name__ == "__main__":
