@@ -74,8 +74,6 @@ Looking forward to your response.
 Requested action:
 Please check and process the pending claim amount.
 
-Timestamp: {now.strftime('%Y-%m-%d %H:%M:%S')}
-
 Regards,
 Siddhartha
 """
