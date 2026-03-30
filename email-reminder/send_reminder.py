@@ -62,7 +62,7 @@ def main():
     body = f"""
 Hi,
 
-This is a reminder regarding the claim amount that has not been received after approval in Nov 2025.
+This is a reminder regarding the claim amount that has not been received after approval in Nov 2025 for Claim ID 2381622.
 
 I had already shared the required details again in a new email on 3rd March, including the cancelled cheque and bank statements.
 However, I have still not received any update on when the amount will be credited to my account.
