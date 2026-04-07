@@ -2,11 +2,6 @@ name: Send Reminder
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '30 3 * * *'   # 09:00 IST
-    - cron: '30 5 * * *'   # 11:00 IST
-    - cron: '30 9 * * *'   # 15:00 IST
-
 jobs:
   send-reminder:
     runs-on: ubuntu-latest
